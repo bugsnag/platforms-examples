@@ -1,5 +1,0 @@
-# ninja log v5
-83	396	1696347269350307957	/Users/josh.edney/repos/bugsnag-cli/features/base-fixtures/android/app/build/intermediates/cxx/RelWithDebInfo/6r2b6h31/obj/x86_64/libpicoapp.so	6baec7d7cb4060c3
-0	82	1696347269056095256	CMakeFiles/picoapp.dir/picoapp.cpp.o	2167c050c3698444
-1	36	1706031321670604170	CMakeFiles/picoapp.dir/picoapp.cpp.o	2167c050c3698444
-36	96	1706031321730654890	/Users/josh.edney/repos/bugsnag-cli/features/base-fixtures/android/app/build/intermediates/cxx/RelWithDebInfo/6r2b6h31/obj/x86_64/libpicoapp.so	6baec7d7cb4060c3
