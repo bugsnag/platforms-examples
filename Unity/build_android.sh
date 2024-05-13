@@ -9,7 +9,7 @@ fi
 UNITY_PATH="/Applications/Unity/Hub/Editor/$UNITY_VERSION/Unity.app/Contents/MacOS"
 
 # Run unity and immediately exit afterwards, log all output
-DEFAULT_CLI_ARGS="-quit -batchmode -nographics -logFile build_android_apk.log"
+DEFAULT_CLI_ARGS="-quit -batchmode -nographics -logFile build.log"
 
 project_path=`pwd`
 
