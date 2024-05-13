@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using UnityEngine;
-using BugsnagUnity.Editor;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -21,25 +20,25 @@ public class Builder : MonoBehaviour {
 
     public static void MacOS()
     {
-        Build("build/MacOS/Mazerunner", BuildTarget.StandaloneOSX);
+        Build("build/MacOS/UnityExample", BuildTarget.StandaloneOSX);
     }
 
     public static void Win64()
     {
-        Build("build/Windows/Mazerunner.exe", BuildTarget.StandaloneWindows64);
+        Build("build/Windows/UnityExample.exe", BuildTarget.StandaloneWindows64);
     }
 
     public static void WebGL()
     {
-        Build("build/WebGL/Mazerunner", BuildTarget.WebGL);
+        Build("build/WebGL/UnityExample", BuildTarget.WebGL);
     }
 
-    // Generates the Mazerunner APK
+    // Generates the APK
     public static void AndroidBuild()
     {
         Debug.Log("Building Android app...");
-        PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, "com.bugsnag.fixtures.unity.notifier.android");
-        var opts = CommonOptions("mazerunner.apk");
+        PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, "com.bugsnag.example.unity.android");
+        var opts = CommonOptions("UnityExample.apk");
         opts.target = BuildTarget.Android;
 
 #if UNITY_2022_1_OR_NEWER
@@ -50,29 +49,17 @@ public class Builder : MonoBehaviour {
         Debug.Log("Result: " + result);
     }
 
-    // Generates the Mazerunner IPA
+    // Generates the IPA
     public static void IosBuild()
     {
         Debug.Log("Building iOS app...");
-        PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, "com.bugsnag.fixtures.unity.notifier.ios");
+        PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, "com.bugsnag.example.unity.ios");
         PlayerSettings.iOS.appleDeveloperTeamID = "7W9PZ27Y5F";
         PlayerSettings.iOS.appleEnableAutomaticSigning = true;
         PlayerSettings.iOS.allowHTTPDownload = true;
 
-        var opts = CommonOptions("mazerunner_xcode");
+        var opts = CommonOptions("UnityExample");
         opts.target = BuildTarget.iOS;
-
-        var result = BuildPipeline.BuildPlayer(opts);
-        Debug.Log("Result: " + result);
-    }
-
-    public static void SwitchBuild()
-    {
-        Debug.Log("Building Switch app...");
-        PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Switch, "com.bugsnag.fixtures.unity.notifier.ios");
-        var opts = CommonOptions("mazerunner.nspd");
-        opts.target = BuildTarget.Switch;
-        opts.options = BuildOptions.Development;
 
         var result = BuildPipeline.BuildPlayer(opts);
         Debug.Log("Result: " + result);
