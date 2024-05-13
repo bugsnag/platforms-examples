@@ -14,6 +14,6 @@ DEFAULT_CLI_ARGS="-quit -batchmode -nographics -logFile build.log"
 project_path=`pwd`
 
 # Build for Android
-$UNITY_PATH/Unity $DEFAULT_CLI_ARGS -projectPath $project_path -executeMethod Builder.IosBuildA
+$UNITY_PATH/Unity $DEFAULT_CLI_ARGS -projectPath $project_path -executeMethod Builder.IosBuild
 RESULT=$?
 if [ $RESULT -ne 0 ]; then exit $RESULT; fi
