@@ -14,7 +14,7 @@ UE_RUNUAT="${UE_HOME}/Engine/Build/BatchFiles/RunUAT.sh"
 
 echo "--- Building Editor dependencies"
 
-"${UE_BUILD}" TestFixture Mac Development -TargetType=Editor -ForceUnity "${UPROJECT}"
+"${UE_BUILD}" bugsnag_example_5_3 Mac Development -TargetType=Editor -ForceUnity "${UPROJECT}"
 
 
 echo "--- Building test fixture"
@@ -37,19 +37,19 @@ echo "--- Preparing artifact(s) for upload"
 
 case "${PLATFORM}" in
   Android)
-    mv features/fixtures/generic/Binaries/Android/TestFixture-Android-Shipping-arm64.apk build/TestFixture-Android-Shipping-"${UE_VERSION}"-arm64.apk
-    if [[ -f features/fixtures/generic/Binaries/Android/TestFixture-Android-Shipping-armv7.apk ]]; then
-      mv features/fixtures/generic/Binaries/Android/TestFixture-Android-Shipping-armv7.apk build/TestFixture-Android-Shipping-"${UE_VERSION}"-armv7.apk
+    mv Binaries/Android/bugsnag_example_5_3-Android-Shipping-arm64.apk build/bugsnag_example_5_3-Android-Shipping-arm64.apk
+    if [[ -f Binaries/Android/bugsnag_example_5_3-Android-Shipping-armv7.apk ]]; then
+      mv Binaries/Android/bugsnag_example_5_3-Android-Shipping-armv7.apk build/bugsnag_example_5_3-Android-Shipping-armv7.apk
     fi
     ;;
 
   IOS)
-    mv features/fixtures/generic/Binaries/IOS/TestFixture-IOS-Shipping.dSYM build/TestFixture-IOS-Shipping-"${UE_VERSION}".dSYM
-    mv features/fixtures/generic/Binaries/IOS/TestFixture-IOS-Shipping.ipa build/TestFixture-IOS-Shipping-"${UE_VERSION}".ipa
+    mv Binaries/IOS/bugsnag_example_5_3-IOS-Shipping.dSYM build/bugsnag_example_5_3-IOS-Shipping.dSYM
+    mv Binaries/IOS/bugsnag_example_5_3-IOS-Shipping.ipa build/bugsnag_example_5_3-IOS-Shipping.ipa
     ;;
 
   Mac)
-    mv features/fixtures/generic/ArchivedBuilds/Mac/ features/fixtures/generic/ArchivedBuilds/MacNoEditor/
-    zip -r TestFixture-macOS-"${UE_VERSION}".zip features/fixtures/generic/ArchivedBuilds
+    mv ArchivedBuilds/Mac/ ArchivedBuilds/MacNoEditor/
+    zip -r bugsnag_example_5_3-macOS.zip ArchivedBuilds
     ;;
 esac
