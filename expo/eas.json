@@ -1,0 +1,21 @@
+{
+    "cli": {
+      "version": ">= 8.0.0"
+    },
+    "build": {
+      "production": {
+        "distribution": "internal",
+        "credentialsSource": "local",
+        "android": {
+          "buildType": "apk"
+        },
+        "ios": {
+          "enterpriseProvisioning": "universal"
+        }
+      }
+    },
+    "submit": {
+      "production": {}
+    }
+  }
+  
