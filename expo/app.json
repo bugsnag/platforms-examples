@@ -22,15 +22,6 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.bugsnag.expo.example",
       "buildNumber": "1",
-      "infoPlist": {
-        "NSAppTransportSecurity": {
-            "NSExceptionDomains": {
-              "bs-local.com": {
-                "NSExceptionAllowsInsecureHTTPLoads": true
-              }
-          }
-        }
-      }
     },
     "android": {
       "package": "com.bugsnag.expo.example",
