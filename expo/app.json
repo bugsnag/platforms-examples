@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "example-app",
-    "slug": "example-app",
+    "name": "expo-example",
+    "slug": "expo-example",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -13,13 +13,14 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bugsnag.expo.example"
     },
     "android": {
-      "package": "com.bugsnag.expo.example.app",
+      "package": "com.bugsnag.expo.example",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
       },
       "versionCode": 1
     },
@@ -39,8 +40,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "7e72fbef-4857-4e5d-a7f5-4c49f6cc60b7"
+        "projectId": "de04fa84-a38b-4869-ad22-1fb8080ee927"
       }
-    }
+    },
+    "owner": "bugsnag-notifiers"
   }
 }
