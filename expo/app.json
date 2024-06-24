@@ -16,10 +16,12 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.bugsnag.expo.example-app",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "versionCode": 1
     },
     "web": {
       "bundler": "metro",
