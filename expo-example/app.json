@@ -1,53 +1,48 @@
 {
   "expo": {
-    "name": "test-fixture",
-    "slug": "test-fixture",
-    "privacy": "unlisted",
-    "version": "2.0.0",
+    "name": "expo-example",
+    "slug": "expo-example",
+    "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.bugsnag.expo.testfixture",
-      "buildNumber": "1",
-      "infoPlist": {
-        "NSAppTransportSecurity": {
-            "NSExceptionDomains": {
-              "bs-local.com": {
-                "NSExceptionAllowsInsecureHTTPLoads": true
-              }
-          }
-        }
-      }
+      "bundleIdentifier": "com.bugsnag.expo.example"
     },
     "android": {
-      "package": "com.bugsnag.expo.testfixture",
+      "package": "com.bugsnag.expo.example",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
       },
       "versionCode": 1
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
     },
-    "plugins": ["./config-plugins/withRemoveiOSNotificationEntitlement", "./config-plugins/withAddClearTextTrafficAndroid"],
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
     "extra": {
+      "router": {
+        "origin": false
+      },
       "eas": {
-        "projectId": "EXPO_EAS_PROJECT_ID"
+        "projectId": "de04fa84-a38b-4869-ad22-1fb8080ee927"
       }
-    }
+    },
+    "owner": "bugsnag-notifiers"
   }
 }
