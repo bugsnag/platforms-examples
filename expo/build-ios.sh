@@ -4,7 +4,7 @@ set -e
 
 # specifying a working directory for the local eas build helps to avoid caching issues with metro
 if [[ -z ${EAS_LOCAL_BUILD_WORKINGDIR:-} ]]; then
-  EAS_LOCAL_BUILD_WORKINGDIR=$BUILDKITE_BUILD_CHECKOUT_PATH/build
+  EAS_LOCAL_BUILD_WORKINGDIR="$(pwd)/build"
   export EAS_LOCAL_BUILD_WORKINGDIR
 fi
 
