@@ -36,6 +36,7 @@ public class Builder : MonoBehaviour {
     // Generates the APK
     public static void AndroidBuild()
     {
+        EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Debugging;
         Debug.Log("Building Android app...");
         PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, "com.bugsnag.example.unity.android");
         var opts = CommonOptions("UnityExample.apk");
