@@ -50,6 +50,24 @@ public class Builder : MonoBehaviour {
         Debug.Log("Result: " + result);
     }
 
+    // Generates the AAB
+    public static void AndroidBuildAAB()
+    {
+        EditorUserBuildSettings.buildAppBundle = true;
+        EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Debugging;
+        Debug.Log("Building Android app bundle...");
+        PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, "com.bugsnag.example.unity.android");
+        var opts = CommonOptions("UnityExample.aab");
+        opts.target = BuildTarget.Android;
+
+#if UNITY_2022_1_OR_NEWER
+        PlayerSettings.insecureHttpOption = InsecureHttpOption.AlwaysAllowed;
+#endif
+
+        var result = BuildPipeline.BuildPlayer(opts);
+        Debug.Log("Result: " + result);
+}
+
     // Generates the IPA
     public static void IosBuild()
     {

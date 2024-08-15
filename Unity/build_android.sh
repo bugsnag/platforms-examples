@@ -14,6 +14,10 @@ DEFAULT_CLI_ARGS="-quit -batchmode -nographics -logFile build.log"
 project_path=`pwd`
 
 # Build for Android
-$UNITY_PATH/Unity $DEFAULT_CLI_ARGS -projectPath $project_path -executeMethod Builder.AndroidBuild
+if [ "$1" == "aab" ]; then
+  $UNITY_PATH/Unity $DEFAULT_CLI_ARGS -projectPath $project_path -executeMethod Builder.AndroidBuildAAB
+else
+  $UNITY_PATH/Unity $DEFAULT_CLI_ARGS -projectPath $project_path -executeMethod Builder.AndroidBuild
+fi
 RESULT=$?
 if [ $RESULT -ne 0 ]; then exit $RESULT; fi
