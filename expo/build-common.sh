@@ -15,8 +15,7 @@ yarn install
 # Set EAS Project ID
 sed -i '' "s/EXPO_EAS_PROJECT_ID/$EXPO_EAS_PROJECT_ID/g" app.json
 
-cp $EXPO_UNIVERSAL_CREDENTIALS_DIR/* .
-cp $EXPO_UNIVERSAL_CREDENTIALS_DIR/../platforms-examples/expo/* .
+cp $EXPO_CREDENTIALS_DIR/* .
 
 echo "Common setup complete"
 
