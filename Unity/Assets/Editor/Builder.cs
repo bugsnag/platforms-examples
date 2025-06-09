@@ -33,28 +33,6 @@ public class Builder : MonoBehaviour {
         Build("build/WebGL/UnityExample", BuildTarget.WebGL);
     }
 
-    private static void EnableCreateSymbolsZip()
-    {
-        var androidSettingsType = typeof(PlayerSettings).GetNestedType("Android", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public);
-        if (androidSettingsType != null)
-        {
-            var prop = androidSettingsType.GetProperty("createSymbolsZip", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
-            if (prop != null && prop.CanWrite)
-            {
-                prop.SetValue(null, true, null);
-                Debug.Log("createSymbolsZip set via reflection.");
-            }
-            else
-            {
-                Debug.LogWarning("createSymbolsZip property not found or not writable.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("PlayerSettings.Android type not found.");
-        }
-    }
-
     private static void EnableAndroidSymbolUpload()
     {
         PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
