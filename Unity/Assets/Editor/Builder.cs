@@ -103,13 +103,28 @@ public class Builder : MonoBehaviour {
     public static void IosBuild()
     {
         Debug.Log("Building iOS app...");
+
         PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, "com.bugsnag.example.unity.ios");
         PlayerSettings.iOS.appleDeveloperTeamID = "7W9PZ27Y5F";
         PlayerSettings.iOS.appleEnableAutomaticSigning = true;
         PlayerSettings.iOS.allowHTTPDownload = true;
 
+        // Enable IL2CPP (required for line mappings)
+        PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
+
+        // Enable symbol generation
+        PlayerSettings.iOS.buildWithIL2CPP = true;
+        PlayerSettings.iOS.scriptCallOptimization = ScriptCallOptimizationLevel.FastButNoExceptions; // Optional
+        PlayerSettings.stripEngineCode = true; // Optional, makes symbols smaller
+
+        // Enable generation of symbol maps (line mappings)
+        PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.iOS, Il2CppCompilerConfiguration.Release);
+        PlayerSettings.iOS.symlinkLibraries = false; // Avoids missing symbols
+        PlayerSettings.iOS.includeBitcode = false; // Optional: makes symbols more readable
+
         var opts = CommonOptions("UnityExample");
         opts.target = BuildTarget.iOS;
+        opts.options &= ~BuildOptions.Development; // Make sure it's a release build
 
         var result = BuildPipeline.BuildPlayer(opts);
         Debug.Log("Result: " + result);
