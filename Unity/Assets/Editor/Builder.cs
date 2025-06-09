@@ -33,52 +33,76 @@ public class Builder : MonoBehaviour {
         Build("build/WebGL/UnityExample", BuildTarget.WebGL);
     }
 
+    private static void EnableAndroidSymbolUpload()
+    {
+        PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
+        EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Public;
+    }
+
     // Generates the APK
     public static void AndroidBuild()
     {
-        EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Debugging;
+        EnableAndroidSymbolUpload();
         Debug.Log("Building Android app...");
         PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, "com.bugsnag.example.unity.android");
+
         var opts = CommonOptions("UnityExample.apk");
         opts.target = BuildTarget.Android;
+        opts.options &= ~BuildOptions.Development;
 
-#if UNITY_2022_1_OR_NEWER
+    #if UNITY_2022_1_OR_NEWER
         PlayerSettings.insecureHttpOption = InsecureHttpOption.AlwaysAllowed;
-#endif
+    #endif
 
         var result = BuildPipeline.BuildPlayer(opts);
         Debug.Log("Result: " + result);
     }
 
-    // Generates the AAB
     public static void AndroidBuildAAB()
     {
+        EnableAndroidSymbolUpload();
         EditorUserBuildSettings.buildAppBundle = true;
-        EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Debugging;
         Debug.Log("Building Android app bundle...");
         PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, "com.bugsnag.example.unity.android");
+
         var opts = CommonOptions("UnityExample.aab");
         opts.target = BuildTarget.Android;
+        opts.options &= ~BuildOptions.Development;
 
-#if UNITY_2022_1_OR_NEWER
+    #if UNITY_2022_1_OR_NEWER
         PlayerSettings.insecureHttpOption = InsecureHttpOption.AlwaysAllowed;
-#endif
+    #endif
 
         var result = BuildPipeline.BuildPlayer(opts);
         Debug.Log("Result: " + result);
-}
+    }
 
     // Generates the IPA
     public static void IosBuild()
     {
         Debug.Log("Building iOS app...");
+
         PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, "com.bugsnag.example.unity.ios");
         PlayerSettings.iOS.appleDeveloperTeamID = "7W9PZ27Y5F";
         PlayerSettings.iOS.appleEnableAutomaticSigning = true;
         PlayerSettings.iOS.allowHTTPDownload = true;
 
+        // Enable IL2CPP (required for line mappings)
+        PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
+
+        // Enable symbol generation
+        PlayerSettings.iOS.buildWithIL2CPP = true;
+        PlayerSettings.iOS.scriptCallOptimization = ScriptCallOptimizationLevel.FastButNoExceptions; // Optional
+        PlayerSettings.stripEngineCode = true; // Optional, makes symbols smaller
+
+        // Enable generation of symbol maps (line mappings)
+        PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.iOS, Il2CppCompilerConfiguration.Release);
+        PlayerSettings.iOS.symlinkLibraries = false; // Avoids missing symbols
+        PlayerSettings.iOS.includeBitcode = false; // Optional: makes symbols more readable
+
         var opts = CommonOptions("UnityExample");
         opts.target = BuildTarget.iOS;
+        opts.options &= ~BuildOptions.Development; // Make sure it's a release build
 
         var result = BuildPipeline.BuildPlayer(opts);
         Debug.Log("Result: " + result);
