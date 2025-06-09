@@ -33,40 +33,71 @@ public class Builder : MonoBehaviour {
         Build("build/WebGL/UnityExample", BuildTarget.WebGL);
     }
 
+    private static void EnableCreateSymbolsZip()
+    {
+        var androidSettingsType = typeof(PlayerSettings).GetNestedType("Android", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public);
+        if (androidSettingsType != null)
+        {
+            var prop = androidSettingsType.GetProperty("createSymbolsZip", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+            if (prop != null && prop.CanWrite)
+            {
+                prop.SetValue(null, true, null);
+                Debug.Log("createSymbolsZip set via reflection.");
+            }
+            else
+            {
+                Debug.LogWarning("createSymbolsZip property not found or not writable.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("PlayerSettings.Android type not found.");
+        }
+    }
+
+    private static void EnableAndroidSymbolUpload()
+    {
+        PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
+        EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Public;
+    }
+
     // Generates the APK
     public static void AndroidBuild()
     {
-        EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Debugging;
+        EnableAndroidSymbolUpload();
         Debug.Log("Building Android app...");
         PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, "com.bugsnag.example.unity.android");
+
         var opts = CommonOptions("UnityExample.apk");
         opts.target = BuildTarget.Android;
+        opts.options &= ~BuildOptions.Development;
 
-#if UNITY_2022_1_OR_NEWER
+    #if UNITY_2022_1_OR_NEWER
         PlayerSettings.insecureHttpOption = InsecureHttpOption.AlwaysAllowed;
-#endif
+    #endif
 
         var result = BuildPipeline.BuildPlayer(opts);
         Debug.Log("Result: " + result);
     }
 
-    // Generates the AAB
     public static void AndroidBuildAAB()
     {
+        EnableAndroidSymbolUpload();
         EditorUserBuildSettings.buildAppBundle = true;
-        EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Debugging;
         Debug.Log("Building Android app bundle...");
         PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, "com.bugsnag.example.unity.android");
+
         var opts = CommonOptions("UnityExample.aab");
         opts.target = BuildTarget.Android;
+        opts.options &= ~BuildOptions.Development;
 
-#if UNITY_2022_1_OR_NEWER
+    #if UNITY_2022_1_OR_NEWER
         PlayerSettings.insecureHttpOption = InsecureHttpOption.AlwaysAllowed;
-#endif
+    #endif
 
         var result = BuildPipeline.BuildPlayer(opts);
         Debug.Log("Result: " + result);
-}
+    }
 
     // Generates the IPA
     public static void IosBuild()
