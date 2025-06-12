@@ -37,6 +37,13 @@ public class Builder : MonoBehaviour {
     {
         PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
         EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Public;
+
+        const string emitIl2cppSourceMapping = "--emit-source-mapping";
+        var args = PlayerSettings.GetAdditionalIl2CppArgs();
+        if (!args.Contains(emitIl2cppSourceMapping))
+        {
+            PlayerSettings.SetAdditionalIl2CppArgs(args + emitIl2cppSourceMapping);
+        }
     }
 
     // Generates the APK
